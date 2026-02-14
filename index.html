@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bio</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XL1W94YJQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5XL1W94YJQ');
+    </script>
+    
     <style>
         @font-face {
             font-family: 'Cyrillic Pixel';
@@ -53,6 +63,18 @@
         .container {
             max-width: 580px;
             width: 100%;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .profile {
@@ -68,12 +90,46 @@
             border: 2px solid var(--card-border);
             background: var(--card-bg);
             overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover img {
+            transform: scale(1.1);
+        }
+
+        .wave-emoji {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .avatar:hover .wave-emoji {
+            opacity: 1;
+            animation: wave 0.6s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(15deg); }
+            75% { transform: translate(-50%, -50%) rotate(-15deg); }
         }
 
         h1 {
@@ -112,19 +168,21 @@
         .link {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
+            border-radius: 8px;
             padding: 1rem 1.25rem;
             text-decoration: none;
             color: var(--text-primary);
             font-size: 0.9rem;
             font-weight: 300;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: block;
         }
 
         .link:hover {
             background: var(--link-hover);
             border-color: var(--text-primary);
-            transform: translateX(4px);
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .sublinks {
@@ -132,17 +190,28 @@
             flex-direction: column;
             gap: 0.4rem;
             margin-top: 0.5rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .link:hover + .sublinks,
+        .sublinks:hover {
+            opacity: 1;
+            max-height: 500px;
         }
 
         .sublink {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
             padding: 0.7rem 1rem;
             text-decoration: none;
             color: var(--text-secondary);
             font-size: 0.85rem;
             font-weight: 300;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: block;
             margin-left: 1rem;
         }
@@ -151,7 +220,7 @@
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-primary);
             border-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(4px);
+            transform: translateX(8px);
         }
 
         @media (max-width: 640px) {
@@ -173,8 +242,9 @@
 <body>
     <div class="container">
         <div class="profile">
-            <div class="avatar">
+            <div class="avatar" onclick="playHoverSound()">
                 <img src="avatar.jpg" alt="Avatar">
+                <div class="wave-emoji">👋</div>
             </div>
             <h1>Ваше Имя</h1>
             <p class="bio">Краткое описание о себе. Расскажите, чем вы занимаетесь и что вас интересует.</p>
@@ -233,25 +303,13 @@
     </div>
 
     <script>
-        const counterKey = 'pidorasina8841.github.io/visits';
+        // Звук при наведении на аватарку
+        const hoverSound = new Audio('hover-sound.mp3');
         
-        // Увеличиваем счётчик при загрузке страницы
-        fetch(`https://api.countapi.xyz/hit/${counterKey}`)
-            .catch(err => console.error('Counter error:', err));
-        
-        // Функция для просмотра статистики
-        window.views = async function() {
-            try {
-                const res = await fetch(`https://api.countapi.xyz/get/${counterKey}`);
-                const data = await res.json();
-                console.log(`Total views: ${data.value}`);
-                return data.value;
-            } catch (err) {
-                console.error('Failed to get views:', err);
-            }
-        };
-        
-        console.log('Type "views()" to see visit statistics');
+        function playHoverSound() {
+            hoverSound.currentTime = 0;
+            hoverSound.play().catch(err => console.log('Sound play failed:', err));
+        }
     </script>
 </body>
 </html>
