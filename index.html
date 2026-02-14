@@ -231,5 +231,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const counterKey = 'pidorasina8841.github.io/visits';
+        
+        // Увеличиваем счётчик при загрузке страницы
+        fetch(`https://api.countapi.xyz/hit/${counterKey}`)
+            .catch(err => console.error('Counter error:', err));
+        
+        // Функция для просмотра статистики
+        window.views = async function() {
+            try {
+                const res = await fetch(`https://api.countapi.xyz/get/${counterKey}`);
+                const data = await res.json();
+                console.log(`Total views: ${data.value}`);
+                return data.value;
+            } catch (err) {
+                console.error('Failed to get views:', err);
+            }
+        };
+        
+        console.log('Type "views()" to see visit statistics');
+    </script>
 </body>
 </html>
