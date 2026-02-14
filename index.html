@@ -112,10 +112,10 @@
 
         .wave-emoji {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
+            bottom: 3%;
+            left: 4%;
+            transform: none;
+            font-size: 2.5rem;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -127,9 +127,9 @@
         }
 
         @keyframes wave {
-            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            25% { transform: translate(-50%, -50%) rotate(15deg); }
-            75% { transform: translate(-50%, -50%) rotate(-15deg); }
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
         }
 
         h1 {
@@ -223,6 +223,35 @@
             transform: translateX(8px);
         }
 
+        .candy-button {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 55px;
+            height: 55px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            user-select: none;
+        }
+
+        .candy-button:hover {
+            background: var(--link-hover);
+            border-color: var(--text-primary);
+            transform: scale(1.15) rotate(15deg);
+        }
+
+        .candy-button:active {
+            transform: scale(0.95) rotate(-5deg);
+        }
+
         @media (max-width: 640px) {
             body {
                 padding: 1.5rem;
@@ -240,6 +269,8 @@
     </style>
 </head>
 <body>
+    <div class="candy-button" onclick="playCandySound()">🍭</div>
+    
     <div class="container">
         <div class="profile">
             <div class="avatar" onclick="playHoverSound()">
@@ -309,6 +340,14 @@
         function playHoverSound() {
             hoverSound.currentTime = 0;
             hoverSound.play().catch(err => console.log('Sound play failed:', err));
+        }
+        
+        // Звук при клике на чупачупс
+        const candySound = new Audio('candy-sound.mp3');
+        
+        function playCandySound() {
+            candySound.currentTime = 0;
+            candySound.play().catch(err => console.log('Candy sound play failed:', err));
         }
     </script>
 </body>
