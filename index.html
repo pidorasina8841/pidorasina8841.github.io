@@ -3,352 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio</title>
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XL1W94YJQ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-5XL1W94YJQ');
-    </script>
-    
+    <title>Мой сайт</title>
     <style>
         @font-face {
-            font-family: 'Cyrillic Pixel';
+            font-family: 'CyrillicPixel';
             src: url('CyrillicPixel-7.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
         }
-    </style>
-    <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-overlay: rgba(0, 0, 0, 0.65);
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --card-border: rgba(255, 255, 255, 0.15);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --link-hover: rgba(255, 255, 255, 0.12);
-        }
-
         body {
-            font-family: 'Cyrillic Pixel', monospace;
-            background: #0a0a0a url('background.jpg') center/cover fixed;
-            color: var(--text-primary);
+            background-color: #ffffff;
+            font-family: 'CyrillicPixel', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            color: #000000;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--bg-overlay);
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 580px;
-            width: 100%;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .profile {
+        .text {
+            font-size: 48px;
             text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            border: 2px solid var(--card-border);
-            background: var(--card-bg);
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .avatar:hover {
-            transform: scale(1.05);
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .avatar:hover img {
-            transform: scale(1.1);
-        }
-
-        .wave-emoji {
-            position: absolute;
-            bottom: 3%;
-            left: 4%;
-            transform: none;
-            font-size: 2.5rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .avatar:hover .wave-emoji {
-            opacity: 1;
-            animation: wave 0.6s ease-in-out infinite;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(15deg); }
-            75% { transform: rotate(-15deg); }
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .bio {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            line-height: 1.5;
-        }
-
-        .section {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            margin-bottom: 0.8rem;
-            font-weight: 400;
-        }
-
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .link {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 1rem 1.25rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-weight: 300;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: block;
-        }
-
-        .link:hover {
-            background: var(--link-hover);
-            border-color: var(--text-primary);
-            transform: translateX(8px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .sublinks {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            margin-top: 0.5rem;
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .link:hover + .sublinks,
-        .sublinks:hover {
-            opacity: 1;
-            max-height: 500px;
-        }
-
-        .sublink {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 6px;
-            padding: 0.7rem 1rem;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 300;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: block;
-            margin-left: 1rem;
-        }
-
-        .sublink:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-primary);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(8px);
-        }
-
-        .candy-button {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            width: 55px;
-            height: 55px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            user-select: none;
-        }
-
-        .candy-button:hover {
-            background: var(--link-hover);
-            border-color: var(--text-primary);
-            transform: scale(1.15) rotate(15deg);
-        }
-
-        .candy-button:active {
-            transform: scale(0.95) rotate(-5deg);
-        }
-
-        @media (max-width: 640px) {
-            body {
-                padding: 1.5rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .avatar {
-                width: 100px;
-                height: 100px;
-            }
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="candy-button" onclick="playCandySound()">🍭</div>
-    
-    <div class="container">
-        <div class="profile">
-            <div class="avatar" onclick="playHoverSound()">
-                <img src="avatar.jpg" alt="Avatar">
-                <div class="wave-emoji">👋</div>
-            </div>
-            <h1>великий Дмитрий пораженосец</h1>
-            <p class="bio">люблю срать под кровати</p>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Социальные сети</div>
-            <div class="links">
-                <a href="#" class="link">Telegram</a>
-                <div class="sublinks">
-                    <a href="https://t.me/pkowwww" class="sublink">аккаунт</a>
-                    <a href="https://t.me/chmo148pidor" class="sublink">канал</a>
-                </div>
-
-                <a href="#" class="link">GitHub</a>
-                <div class="sublinks">
-                    <a href="#" class="sublink">Основной профиль</a>
-                    <a href="#" class="sublink">Проектный аккаунт</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Проекты</div>
-            <div class="links">
-                <a href="#" class="link">Основной проект</a>
-                <div class="sublinks">
-                    <a href="#" class="sublink">Документация</a>
-                    <a href="#" class="sublink">Демо версия</a>
-                </div>
-
-                <a href="#" class="link">Побочный проект</a>
-                <div class="sublinks">
-                    <a href="#" class="sublink">Исходный код</a>
-                    <a href="#" class="sublink">Live demo</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Контакты</div>
-            <div class="links">
-                <a href="#" class="link">Email</a>
-                <div class="sublinks">
-                    <a href="#" class="sublink">Личная почта</a>
-                    <a href="#" class="sublink">Рабочая почта</a>
-                </div>
-
-                <a href="#" class="link">Discord</a>
-                <div class="sublinks">
-                    <a href="#" class="sublink">Основной сервер</a>
-                    <a href="#" class="sublink">Приватный сервер</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Звук при наведении на аватарку
-        const hoverSound = new Audio('hover-sound.mp3');
-        
-        function playHoverSound() {
-            hoverSound.currentTime = 0;
-            hoverSound.play().catch(err => console.log('Sound play failed:', err));
-        }
-        
-        // Звук при клике на чупачупс
-        const candySound = new Audio('candy-sound.mp3');
-        
-        function playCandySound() {
-            candySound.currentTime = 0;
-            candySound.play().catch(err => console.log('Candy sound play failed:', err));
-        }
-    </script>
+    <div class="text">ПРИВЕТ</div>
 </body>
 </html>
